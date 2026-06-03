@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{--red:#FE2C55;--blue:#25F4EE;--dk:#0a0a0f;--dk2:#111118;--dk3:#16161f;--cd:#1c1c27;--cd2:#222230;--bd:rgba(255,255,255,.07);--tx:#FFF;--tx2:#9494A8;--tx3:#5A5A70;--ok:#22c55e;--no:#ef4444;--wa:#f59e0b;--r:16px;--sw:260px;--tr:all .3s cubic-bezier(.4,0,.2,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--dk);color:var(--tx);min-height:100vh}
+.hidden{display:none!important}
+
+/* LOGIN */
+#LS{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at 20% 50%,rgba(254,44,85,.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 50%,rgba(37,244,238,.06) 0%,transparent 60%),var(--dk)}
+.lc{width:100%;max-width:400px;background:var(--dk3);border:1px solid var(--bd);border-radius:24px;padding:40px;box-shadow:0 25px 60px rgba(0,0,0,.5)}
+.lb{text-align:center;margin-bottom:35px}
+.bi{width:72px;height:72px;background:linear-gradient(135deg,var(--red),var(--blue));border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 16px;box-shadow:0 8px 24px rgba(254,44,85,.3)}
+.lb h1{font-size:22px;font-weight:700;margin-bottom:4px}
+.lb p{font-size:13px;color:var(--tx2)}
+.fw{margin-bottom:16px}
+.fw>label{display:block;font-size:13px;font-weight:500;color:var(--tx2);margin-bottom:8px}
+.pf{position:relative;display:flex;align-items:center}
+.pf .pi{position:absolute;left:15px;color:var(--tx3);font-size:14px}
+.pf input{width:100%;padding:14px 45px;background:var(--cd2);border:2px solid transparent;border-radius:12px;color:var(--tx);font:15px 'Poppins',sans-serif;transition:.3s}
+.pf input:focus{outline:none;border-color:var(--red)}
+.pt{position:absolute;right:12px;background:none;border:none;color:var(--tx3);cursor:pointer;padding:5px;font-size:15px}
+.pt:hover{color:var(--tx)}
+.le{min-height:20px;font-size:13px;color:var(--no);margin-bottom:12px;padding:0 4px}
+.lsb{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:12px;font:600 16px 'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:var(--tr);box-shadow:0 4px 20px rgba(254,44,85,.3)}
+.lsb:hover{background:#e0254b;transform:translateY(-2px)}
+.lsb:disabled{opacity:.7;cursor:not-allowed;transform:none}
+.lh{text-align:center;margin-top:25px;font-size:12px;color:var(--tx3);display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* DASHBOARD */
+#DA{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+#SB{width:var(--sw);background:var(--dk3);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:200;transition:transform .3s;overflow-y:auto}
+.sbh{display:flex;align-items:center;gap:14px;padding:24px 20px;border-bottom:1px solid var(--bd)}
+.sbl{width:44px;height:44px;background:linear-gradient(135deg,var(--red),var(--blue));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.sbt{font-size:16px;font-weight:700}
+.sbs{font-size:11px;color:var(--tx3)}
+.sbn{flex:1;padding:16px 12px}
+.ssl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--tx3);padding:12px 8px 6px;font-weight:600}
+.sli{display:flex;align-items:center;gap:12px;padding:11px 14px;color:var(--tx2);text-decoration:none;border-radius:12px;margin-bottom:2px;transition:var(--tr);font-size:14px;font-weight:500}
+.sli i{width:18px;text-align:center;font-size:15px}
+.sli:hover{background:rgba(255,255,255,.05);color:var(--tx)}
+.sli.ac{background:rgba(254,44,85,.12);color:var(--red);border:1px solid rgba(254,44,85,.2)}
+.sbb{padding:16px 12px;border-top:1px solid var(--bd)}
+.stb{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,.04);border-radius:8px;font-size:12px;color:var(--tx2);margin-bottom:10px}
+.std{width:8px;height:8px;border-radius:50%;background:var(--wa);animation:bk 1.5s infinite}
+.std.cn{background:var(--ok);animation:none}
+.std.er{background:var(--no);animation:none}
+@keyframes bk{0%,100%{opacity:1}50%{opacity:.3}}
+.sbt2{width:100%;padding:10px;border:none;border-radius:10px;cursor:pointer;font:500 13px 'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px;transition:var(--tr)}
+.sbt2.pv{background:rgba(37,244,238,.1);color:var(--blue);border:1px solid rgba(37,244,238,.2)}
+.sbt2.pv:hover{background:rgba(37,244,238,.2)}
+.sbt2.dg{background:rgba(239,68,68,.1);color:var(--no);border:1px solid rgba(239,68,68,.2)}
+.sbt2.dg:hover{background:rgba(239,68,68,.2)}
+#SO{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:199;backdrop-filter:blur(4px)}
+#SO.ac{display:block}
+
+/* MAIN */
+#MA{flex:1;margin-left:var(--sw);display:flex;flex-direction:column;min-height:100vh}
+.tb{display:flex;align-items:center;gap:20px;padding:16px 30px;background:var(--dk3);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:100}
+#MB{display:none;background:none;border:none;color:var(--tx);font-size:20px;cursor:pointer;padding:5px}
+.tbt{flex:1;display:flex;align-items:center;gap:12px}
+.tbt h2{font-size:18px;font-weight:600}
+.svs{font-size:12px;color:var(--tx3);font-weight:400}
+.svs.si2{color:var(--wa)}.svs.sv{color:var(--ok)}.svs.er{color:var(--no)}
+.tbr{display:flex;gap:10px}
+.tbb{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--red);color:#fff;border:none;border-radius:10px;cursor:pointer;font:500 13px 'Poppins',sans-serif;transition:var(--tr);box-shadow:0 4px 15px rgba(254,44,85,.3)}
+.tbb:hover{background:#e0254b;transform:translateY(-1px)}
+.tbb:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+/* CONTENT */
+.ca{flex:1;padding:30px;overflow-y:auto}
+.tab{display:none}
+.tab.ac{display:block;animation:tfi .3s ease}
+@keyframes tfi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARD */
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:var(--r);padding:28px;margin-bottom:20px}
+.ch{margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--bd)}
+.ch h3{font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.ch h3 i{color:var(--red);font-size:15px}
+.ch p{font-size:13px;color:var(--tx2)}
+
+/* FORMS */
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:13px;font-weight:500;color:var(--tx2);margin-bottom:8px}
+.rq{color:var(--red);margin-left:3px}
+.fg input[type="text"],.fg input[type="url"],.fg input[type="password"],.fg textarea{width:100%;padding:12px 15px;background:var(--cd2);border:1.5px solid transparent;border-radius:10px;color:var(--tx);font:14px 'Poppins',sans-serif;transition:.3s}
+.fg input:focus,.fg textarea:focus{outline:none;border-color:var(--red)}
+.fg textarea{resize:vertical;min-height:80px}
+.fg small{display:block;margin-top:5px;font-size:11px;color:var(--tx3)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fr.t3{grid-template-columns:repeat(3,1fr)}
+.wp{display:flex;align-items:stretch}
+.fpx{padding:12px 14px;background:rgba(254,44,85,.1);border:1.5px solid rgba(254,44,85,.2);border-right:none;border-radius:10px 0 0 10px;color:var(--red);font-weight:600;font-size:16px;display:flex;align-items:center}
+.wp input{border-radius:0 10px 10px 0!important}
+
+/* Toggle */
+.tgr{margin-bottom:18px}
+.tgl{display:flex;align-items:center;justify-content:space-between;padding:14px;background:var(--cd2);border-radius:10px;cursor:pointer}
+.tgi span{display:block;font-size:14px;font-weight:500}
+.tgi small{font-size:12px;color:var(--tx3)}
+.tgs{position:relative;display:inline-block;width:48px;height:26px}
+.tgs input{opacity:0;width:0;height:0}
+.tgth{position:absolute;inset:0;background:var(--cd2);border:2px solid var(--bd);border-radius:26px;cursor:pointer;transition:var(--tr)}
+.tgth::after{content:'';position:absolute;width:18px;height:18px;background:var(--tx3);border-radius:50%;top:2px;left:2px;transition:var(--tr)}
+.tgs input:checked+.tgth{background:rgba(254,44,85,.2);border-color:var(--red)}
+.tgs input:checked+.tgth::after{background:var(--red);transform:translateX(22px)}
+
+/* Image Preview */
+.upw{display:flex;gap:12px;align-items:flex-start}
+.upw input{flex:1}
+.ipv{width:50px;height:50px;background:var(--cd2);border-radius:10px;overflow:hidden;flex-shrink:0;border:1px solid var(--bd)}
+.ipv.wd{width:100px;height:50px}
+.ipv img{width:100%;height:100%;object-fit:cover;display:none}
+.ipv img.sh{display:block}
+
+/* Buttons */
+.svb{padding:12px 24px;background:var(--red);color:#fff;border:none;border-radius:10px;cursor:pointer;font:600 14px 'Poppins',sans-serif;display:inline-flex;align-items:center;gap:8px;transition:var(--tr);box-shadow:0 4px 15px rgba(254,44,85,.25);margin-top:8px}
+.svb:hover{background:#e0254b;transform:translateY(-2px)}
+.aib{width:100%;padding:14px;background:rgba(254,44,85,.05);color:var(--red);border:1.5px dashed rgba(254,44,85,.3);border-radius:10px;cursor:pointer;font:500 14px 'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;transition:var(--tr);margin-top:10px}
+.aib:hover{background:rgba(254,44,85,.1);border-color:var(--red)}
+
+/* Video Items */
+.vi{background:var(--cd2);border:1px solid var(--bd);border-radius:12px;padding:18px;margin-bottom:12px;animation:tfi .3s}
+.vih{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.vn{font-size:12px;font-weight:600;color:var(--red);background:rgba(254,44,85,.1);padding:4px 10px;border-radius:20px}
+.rb{width:32px;height:32px;background:rgba(239,68,68,.1);color:var(--no);border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:var(--tr)}
+.rb:hover{background:rgba(239,68,68,.2)}
+.vf{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.vf .fg{margin-bottom:0}
+.vf input{width:100%;padding:10px 12px;background:var(--cd);border:1.5px solid transparent;border-radius:8px;color:var(--tx);font:13px 'Poppins',sans-serif;transition:.3s}
+.vf input:focus{outline:none;border-color:var(--red)}
+.fc2{grid-column:1/-1}
+
+/* Social Fields */
+.sfs{display:grid;gap:12px}
+.sf{display:flex;align-items:center;gap:15px;padding:12px;background:var(--cd2);border-radius:12px}
+.sfi{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0}
+.sf .fg{flex:1;margin-bottom:0}
+.sf label{font-size:12px;margin-bottom:5px}
+.sf input{padding:9px 12px;font-size:13px}
+
+/* Color Pick */
+.cpk{display:flex;align-items:center;gap:12px;background:var(--cd2);border-radius:10px;padding:8px 12px;border:1.5px solid transparent;transition:.3s}
+.cpk:focus-within{border-color:var(--red)}
+.cpk input[type="color"]{width:36px;height:36px;border:none;border-radius:8px;cursor:pointer;background:none;padding:0}
+.cpk span{font-size:14px;font-family:monospace;color:var(--tx2)}
+
+/* Data Btns */
+.dbs{display:flex;gap:10px;flex-wrap:wrap}
+.db{padding:11px 20px;border:none;border-radius:10px;cursor:pointer;font:500 13px 'Poppins',sans-serif;display:flex;align-items:center;gap:8px;transition:var(--tr)}
+.db.ex{background:rgba(34,197,94,.1);color:var(--ok)}
+.db.im{background:rgba(245,158,11,.1);color:var(--wa)}
+.db.dg2{background:rgba(239,68,68,.1);color:var(--no)}
+.db:hover{transform:translateY(-2px)}
+.fbi{background:var(--cd2);border-radius:10px;padding:15px;font-size:13px;color:var(--tx2);line-height:1.8}
+
+/* Toast */
+.dt{position:fixed;bottom:24px;right:24px;padding:13px 22px;border-radius:12px;font-size:14px;font-weight:500;z-index:5000;transform:translateY(20px);opacity:0;transition:.3s;display:flex;align-items:center;gap:10px;max-width:350px}
+.dt.sh2{transform:translateY(0);opacity:1}
+.dt.su{background:#166534;border:1px solid #22c55e;color:#4ade80}
+.dt.er2{background:#7f1d1d;border:1px solid #ef4444;color:#fca5a5}
+.dt.in{background:#1e3a5f;border:1px solid #3b82f6;color:#93c5fd}
+.dt.wa2{background:#78350f;border:1px solid #f59e0b;color:#fcd34d}
+
+@media(max-width:900px){
+#SB{transform:translateX(-100%)}
+#SB.op{transform:translateX(0)}
+#MA{margin-left:0}
+#MB{display:block}
+.fr,.fr.t3{grid-template-columns:1fr}
+.vf{grid-template-columns:1fr}
+.ca{padding:20px}
+.tb{padding:14px 20px}
+.tbb span{display:none}
+}
+@media(max-width:480px){
+.lc{padding:28px 20px}
+.dbs{flex-direction:column}
+.sf{flex-direction:column;align-items:flex-start}
+}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="LS">
+<div class="lc">
+<div class="lb">
+<div class="bi"><i class="fab fa-tiktok"></i></div>
+<h1>Profile Manager</h1>
+<p>Admin Dashboard</p>
+</div>
+<form id="LF" onsubmit="handleLogin(event)">
+<div class="fw">
+<label>Password</label>
+<div class="pf">
+<i class="fas fa-lock pi"></i>
+<input type="password" id="PWI" placeholder="Enter your password" autocomplete="off" required>
+<button type="button" class="pt" onclick="togglePw()"><i class="fas fa-eye" id="PWE"></i></button>
+</div>
+</div>
+<div id="LER" class="le"></div>
+<button type="submit" class="lsb" id="LBT"><i class="fas fa-arrow-right-to-bracket"></i><span>Login</span></button>
+</form>
+<div class="lh"><i class="fas fa-shield-halved"></i>Secure Admin Access</div>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="DA" class="hidden">
+
+<aside id="SB">
+<div class="sbh">
+<div class="sbl"><i class="fab fa-tiktok"></i></div>
+<div><div class="sbt">Manager</div><div class="sbs">Admin Panel</div></div>
+</div>
+<nav class="sbn">
+<div class="ssl">Management</div>
+<a href="#" class="sli ac" data-tab="T1"><i class="fas fa-user"></i><span>Profile</span></a>
+<a href="#" class="sli" data-tab="T2"><i class="fas fa-file-lines"></i><span>Content</span></a>
+<a href="#" class="sli" data-tab="T3"><i class="fas fa-clapperboard"></i><span>Videos</span></a>
+<a href="#" class="sli" data-tab="T4"><i class="fas fa-share-nodes"></i><span>Social Links</span></a>
+<div class="ssl">System</div>
+<a href="#" class="sli" data-tab="T5"><i class="fas fa-gear"></i><span>Settings</span></a>
+</nav>
+<div class="sbb">
+<div id="FST" class="stb"><div class="std"></div><span>Connecting...</span></div>
+<button onclick="openPreview()" class="sbt2 pv"><i class="fas fa-eye"></i> Preview</button>
+<button onclick="logout()" class="sbt2 dg"><i class="fas fa-right-from-bracket"></i> Logout</button>
+</div>
+</aside>
+
+<div id="SO" onclick="closeSB()"></div>
+
+<main id="MA">
+<div class="tb">
+<button id="MB" onclick="toggleSB()"><i class="fas fa-bars"></i></button>
+<div class="tbt"><h2 id="TTL">Profile</h2><span id="SVS" class="svs"></span></div>
+<div class="tbr"><button class="tbb" onclick="saveAll()" id="SAB"><i class="fas fa-cloud-arrow-up"></i><span>Save to Firebase</span></button></div>
+</div>
+
+<div class="ca">
+
+<!-- TAB 1 - Profile -->
+<div id="T1" class="tab ac">
+<div class="card">
+<div class="ch"><h3><i class="fas fa-id-card"></i> TikTok Profile Setup</h3><p>যেকোনো TikTok আইডির তথ্য দিন</p></div>
+<div class="fr">
+<div class="fg"><label>TikTok Username <span class="rq">*</span></label><div class="wp"><span class="fpx">@</span><input type="text" id="FU" placeholder="username"></div><small>TikTok URL: tiktok.com/@username</small></div>
+<div class="fg"><label>Display Name <span class="rq">*</span></label><input type="text" id="FN" placeholder="Display Name"></div>
+</div>
+<div class="fg"><label>Bio / Description</label><textarea id="FB" rows="3" placeholder="Write your bio..."></textarea></div>
+<div class="fg"><label>Profile Picture URL</label><div class="upw"><input type="url" id="FA" placeholder="https://example.com/avatar.jpg" oninput="pvImg(this,'APV')"><div class="ipv"><img id="APV" src="" alt=""></div></div></div>
+<div class="fr t3">
+<div class="fg"><label>Followers</label><input type="text" id="FFO" placeholder="1.2M"></div>
+<div class="fg"><label>Following</label><input type="text" id="FFI" placeholder="500"></div>
+<div class="fg"><label>Total Likes</label><input type="text" id="FLK" placeholder="50M"></div>
+</div>
+<div class="fg"><label>Tags (comma separated)</label><input type="text" id="FTG" placeholder="Dancer, Singer, Creator"></div>
+<div class="tgr">
+<label class="tgl">
+<div class="tgi"><span>Show Verified Badge</span><small>Blue checkmark on avatar</small></div>
+<label class="tgs"><input type="checkbox" id="FVR" checked><span class="tgth"></span></label>
+</label>
+</div>
+<button class="svb" onclick="saveProfile()"><i class="fas fa-cloud-arrow-up"></i> Save Profile</button>
+</div>
+</div>
+
+<!-- TAB 2 - Content -->
+<div id="T2" class="tab">
+<div class="card">
+<div class="ch"><h3><i class="fas fa-file-lines"></i> Page Content</h3><p>About section ও site settings</p></div>
+<div class="fg"><label>Site Title (Browser Tab)</label><input type="text" id="FST2" placeholder="My TikTok Profile"></div>
+<div class="fg"><label>About Me Content (HTML সাপোর্ট)</label><textarea id="FAB2" rows="6" placeholder="Write about yourself..."></textarea></div>
+<div class="fg"><label>Highlights (JSON)</label><textarea id="FHL" rows="5" placeholder='[{"icon":"fas fa-star","title":"Creator","value":"Since 2020"}]'></textarea><small>JSON array: icon, title, value</small></div>
+<div class="fg"><label>Banner Image URL</label><div class="upw"><input type="url" id="FBN" placeholder="https://example.com/banner.jpg" oninput="pvImg(this,'BPV')"><div class="ipv wd"><img id="BPV" src="" alt=""></div></div></div>
+<button class="svb" onclick="saveContent()"><i class="fas fa-cloud-arrow-up"></i> Save Content</button>
+</div>
+</div>
+
+<!-- TAB 3 - Videos -->
+<div id="T3" class="tab">
+<div class="card">
+<div class="ch"><h3><i class="fas fa-clapperboard"></i> Manage Videos</h3><p>TikTok video গুলো যোগ করুন</p></div>
+<div id="VCT"></div>
+<button class="aib" onclick="addVid()"><i class="fas fa-plus-circle"></i>Add Video</button>
+<button class="svb" onclick="saveVideos()" style="margin-top:20px"><i class="fas fa-cloud-arrow-up"></i> Save Videos</button>
+</div>
+</div>
+
+<!-- TAB 4 - Social -->
+<div id="T4" class="tab">
+<div class="card">
+<div class="ch"><h3><i class="fas fa-share-nodes"></i> Social Media Links</h3><p>সব সোশ্যাল মিডিয়া লিংক</p></div>
+<div class="sfs">
+<div class="sf"><div class="sfi" style="background:linear-gradient(135deg,#010101,#69C9D0)"><i class="fab fa-tiktok"></i></div><div class="fg"><label>TikTok</label><input type="url" id="STK" placeholder="https://tiktok.com/@user"></div></div>
+<div class="sf"><div class="sfi" style="background:linear-gradient(45deg,#f09433,#dc2743,#bc1888)"><i class="fab fa-instagram"></i></div><div class="fg"><label>Instagram</label><input type="url" id="SIG" placeholder="https://instagram.com/user"></div></div>
+<div class="sf"><div class="sfi" style="background:#FF0000"><i class="fab fa-youtube"></i></div><div class="fg"><label>YouTube</label><input type="url" id="SYT" placeholder="https://youtube.com/@channel"></div></div>
+<div class="sf"><div class="sfi" style="background:#1877F2"><i class="fab fa-facebook"></i></div><div class="fg"><label>Facebook</label><input type="url" id="SFB" placeholder="https://facebook.com/page"></div></div>
+<div class="sf"><div class="sfi" style="background:#1DA1F2"><i class="fab fa-twitter"></i></div><div class="fg"><label>Twitter / X</label><input type="url" id="STW" placeholder="https://twitter.com/user"></div></div>
+<div class="sf"><div class="sfi" style="background:#0088cc"><i class="fab fa-telegram"></i></div><div class="fg"><label>Telegram</label><input type="url" id="STL" placeholder="https://t.me/user"></div></div>
+<div class="sf"><div class="sfi" style="background:#5865F2"><i class="fab
